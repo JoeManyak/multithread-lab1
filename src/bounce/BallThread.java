@@ -14,7 +14,7 @@ public class BallThread extends Thread {
     @Override
     public void run(){
         try {
-            for (int i=1;i<10000;i++){
+            while(true) {
                 for (var pocket: pockets) {
                     if (b.inPocket(pocket)) {
                         System.out.println("Ball in pocket from thread: " + Thread.currentThread().getName());
