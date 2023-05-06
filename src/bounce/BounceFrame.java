@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class BounceFrame extends JFrame {
     private BallCanvas canvas;
@@ -17,7 +18,21 @@ public class BounceFrame extends JFrame {
         this.canvas = new BallCanvas();
         System.out.println(this.canvas);
         Container content = this.getContentPane();
+
         content.add(this.canvas, BorderLayout.CENTER);
+        canvas.setBackground(new Color(13,131,9));
+
+        var pockets = new ArrayList<Pocket>();
+        pockets.add(new Pocket(0, 0));
+        pockets.add(new Pocket(WIDTH/2-((int)(Pocket.getWidth()*0.705f)), 0));
+        pockets.add(new Pocket(WIDTH - ((int)(Pocket.getWidth()*1.5f)), 0));
+        pockets.add(new Pocket(0, HEIGHT-((int)(Pocket.getHeight()*3.5f))));
+        pockets.add(new Pocket(WIDTH/2-((int)(Pocket.getWidth()*0.705f)), HEIGHT-((int)(Pocket.getHeight()*3.5f))));
+        pockets.add(new Pocket(WIDTH - ((int)(Pocket.getWidth()*1.5f)), HEIGHT-((int)(Pocket.getHeight()*3.5f))));
+
+        for (var pocket:pockets) {
+            canvas.add(pocket);
+        }
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.lightGray);
@@ -30,7 +45,7 @@ public class BounceFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Ball b = new Ball(canvas);
                 canvas.add(b);
-                BallThread thread = new BallThread(b);
+                BallThread thread = new BallThread(b, pockets);
                 thread.start();
                 System.out.println("Thread name: " + thread.getName());
             }

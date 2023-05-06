@@ -5,24 +5,24 @@ import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 public class Ball {
-    private Component canvas;
+    private BallCanvas canvas;
     private static final int XSIZE = 20;
     private static final int YSIZE = 20;
 
     private int x = 0;
     private int y = 0;
-    private int dx = 2;
-    private int dy = 2;
+    private int dx = 1;
+    private int dy = 1;
 
-    public Ball (Component c) {
+    public Ball (BallCanvas c) {
         this.canvas = c;
         var rand = new Random();
         if (Math.random() < 0.5) {
-            x = rand.nextInt(this.canvas.getWidth());
-            y = 0;
+            x = rand.nextInt(this.canvas.getWidth()-60)+30;
+            y = 30;
         } else {
-            x = 0;
-            y = rand.nextInt(this.canvas.getHeight());
+            x = 30;
+            y = rand.nextInt(this.canvas.getHeight()-60)+30;
         }
     }
 
@@ -51,5 +51,13 @@ public class Ball {
             dy = -dy;
         }
         this.canvas.repaint();
+    }
+
+    public boolean inPocket(Pocket pocket) {
+        return pocket.contains(x,y);
+    }
+
+    public void deleteSelf(){
+        this.canvas.delete(this);
     }
 }
