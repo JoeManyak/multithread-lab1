@@ -8,14 +8,15 @@ public class Ball {
     private BallCanvas canvas;
     private static final int XSIZE = 20;
     private static final int YSIZE = 20;
-
+    public final int priority;
     private final Color color;
     private int x = 0;
     private int y = 0;
-    private int dx = 1;
-    private int dy = 1;
+    private int dx = 2;
+    private int dy = 2;
 
-    public Ball (BallCanvas c, Color color, boolean random) {
+    public Ball (BallCanvas c, Color color, boolean random, int priority) {
+        this.priority = priority;
         this.canvas = c;
         this.color = color;
         if (random) {
