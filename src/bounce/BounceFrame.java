@@ -10,6 +10,7 @@ public class BounceFrame extends JFrame {
     private BallCanvas canvas;
     public static final int WIDTH = 450;
     public static final int HEIGHT = 350;
+    private static final int lowPriorityCount = 100;
 
     public BounceFrame() {
         this.setSize(WIDTH, HEIGHT);
@@ -20,19 +21,13 @@ public class BounceFrame extends JFrame {
         Container content = this.getContentPane();
 
         content.add(this.canvas, BorderLayout.CENTER);
-        canvas.setBackground(new Color(13,131,9));
+        canvas.setBackground(new Color(13, 131, 9));
 
         var pockets = new ArrayList<Pocket>();
-        pockets.add(new Pocket(0, 0));
-        pockets.add(new Pocket(WIDTH/2-((int)(Pocket.getWidth()*0.705f)), 0));
-        pockets.add(new Pocket(WIDTH - ((int)(Pocket.getWidth()*1.5f)), 0));
-        pockets.add(new Pocket(0, HEIGHT-((int)(Pocket.getHeight()*3.5f))));
-        pockets.add(new Pocket(WIDTH/2-((int)(Pocket.getWidth()*0.705f)), HEIGHT-((int)(Pocket.getHeight()*3.5f))));
-        pockets.add(new Pocket(WIDTH - ((int)(Pocket.getWidth()*1.5f)), HEIGHT-((int)(Pocket.getHeight()*3.5f))));
+        // Let's comment pockets adding for now
+        addDefaultPockets(pockets);
 
-        for (var pocket:pockets) {
-            canvas.add(pocket);
-        }
+        // priorityTest(pockets);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.lightGray);
@@ -43,11 +38,7 @@ public class BounceFrame extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Ball b = new Ball(canvas);
-                canvas.add(b);
-                BallThread thread = new BallThread(b, pockets);
-                thread.start();
-                System.out.println("Thread name: " + thread.getName());
+                createBall(pockets, Color.RED, Thread.MIN_PRIORITY, true);
             }
         });
 
@@ -62,5 +53,34 @@ public class BounceFrame extends JFrame {
         buttonPanel.add(stopButton);
 
         content.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    public void addDefaultPockets(ArrayList<Pocket> pockets) {
+        pockets.add(new Pocket(0, 0));
+        pockets.add(new Pocket(WIDTH / 2 - ((int) (Pocket.getWidth() * 0.705f)), 0));
+        pockets.add(new Pocket(WIDTH - ((int) (Pocket.getWidth() * 1.5f)), 0));
+        pockets.add(new Pocket(0, HEIGHT - ((int) (Pocket.getHeight() * 3.5f))));
+        pockets.add(new Pocket(WIDTH / 2 - ((int) (Pocket.getWidth() * 0.705f)), HEIGHT - ((int) (Pocket.getHeight() * 3.5f))));
+        pockets.add(new Pocket(WIDTH - ((int) (Pocket.getWidth() * 1.5f)), HEIGHT - ((int) (Pocket.getHeight() * 3.5f))));
+
+        for (var pocket : pockets) {
+            canvas.add(pocket);
+        }
+    }
+
+    public void createBall(ArrayList<Pocket> pockets, Color color, int priority, boolean randomSpawn) {
+        Ball b = new Ball(canvas, color, randomSpawn);
+        canvas.add(b);
+        BallThread thread = new BallThread(b, pockets, priority);
+        thread.start();
+        System.out.println("Thread name: " + thread.getName());
+    }
+
+
+    public void priorityTest(ArrayList<Pocket> pockets) {
+        createBall(pockets, Color.RED, Thread.MAX_PRIORITY, false);
+        for (var i = 0; i < lowPriorityCount; i++) {
+            createBall(pockets, Color.BLUE, Thread.MIN_PRIORITY, false);
+        }
     }
 }

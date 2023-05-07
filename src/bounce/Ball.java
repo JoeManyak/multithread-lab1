@@ -9,25 +9,29 @@ public class Ball {
     private static final int XSIZE = 20;
     private static final int YSIZE = 20;
 
+    private final Color color;
     private int x = 0;
     private int y = 0;
     private int dx = 1;
     private int dy = 1;
 
-    public Ball (BallCanvas c) {
+    public Ball (BallCanvas c, Color color, boolean random) {
         this.canvas = c;
-        var rand = new Random();
-        if (Math.random() < 0.5) {
-            x = rand.nextInt(this.canvas.getWidth()-60)+30;
-            y = 30;
-        } else {
-            x = 30;
-            y = rand.nextInt(this.canvas.getHeight()-60)+30;
+        this.color = color;
+        if (random) {
+            var rand = new Random();
+            if (Math.random() < 0.5) {
+                x = rand.nextInt(this.canvas.getWidth() - 60) + 30;
+                y = 30;
+            } else {
+                x = 30;
+                y = rand.nextInt(this.canvas.getHeight() - 60) + 30;
+            }
         }
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.RED);
+        g2.setColor(color);
         g2.fill(new Ellipse2D.Double(x, y, XSIZE, YSIZE));
     }
 

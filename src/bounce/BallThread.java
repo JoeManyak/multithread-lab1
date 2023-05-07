@@ -6,9 +6,10 @@ public class BallThread extends Thread {
     private Ball b;
     private ArrayList<Pocket> pockets;
 
-    public BallThread(Ball ball, ArrayList<Pocket> pockets) {
+    public BallThread(Ball ball, ArrayList<Pocket> pockets, int priority){
         this.b = ball;
         this.pockets = pockets;
+        this.setPriority(priority);
     }
 
     @Override
