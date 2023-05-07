@@ -1,9 +1,13 @@
 package symbol;
 
 public class PrintController {
-    public static void main(String[] args) {
-        Printer printer1 = new Printer("-");
-        Printer printer2 = new Printer("|");
+    private Object mutex = new Object();
+    private Printer printer1;
+    private Printer printer2;
+
+    public PrintController(){
+        printer1 = new Printer("-", mutex);
+        printer2 = new Printer("|", mutex);
 
         printer1.start();
         printer2.start();
