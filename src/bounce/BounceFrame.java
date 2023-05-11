@@ -10,7 +10,7 @@ public class BounceFrame extends JFrame {
     private BallCanvas canvas;
     public static final int WIDTH = 450;
     public static final int HEIGHT = 350;
-    private static final int lowPriorityCount = 200;
+    private static final int lowPriorityCount = 20;
     private BallThreadController ballThreadController;
 
     public BounceFrame() {
@@ -27,8 +27,8 @@ public class BounceFrame extends JFrame {
         var pockets = new ArrayList<Pocket>();
         // Let's comment pockets adding for now
         // addDefaultPockets(pockets);
-        this.ballThreadController = new BallThreadController(new ArrayList<>(), pockets);
-        this.ballThreadController.start();
+//        this.ballThreadController = new BallThreadController(new ArrayList<>(), pockets);
+//        this.ballThreadController.start();
 
         priorityTest(pockets);
 
@@ -74,7 +74,7 @@ public class BounceFrame extends JFrame {
     public void createBall(ArrayList<Pocket> pockets, Color color, int priority, boolean randomSpawn) {
         Ball b = new Ball(canvas, color, randomSpawn, priority);
         canvas.add(b);
-        ballThreadController.add(b);
+        //allThreadController.add(b);
         BallThread thread = new BallThread(b, pockets);
         thread.start();
         System.out.println("Thread name: " + thread.getName());

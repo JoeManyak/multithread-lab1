@@ -17,13 +17,6 @@ public class BallThreadController extends Thread {
     public void run() {
         while (true) {
             createThreads();
-            for (var i = 0; i < threads.size(); i++) {
-                try {
-                    threads.get(i).join();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
     }
 

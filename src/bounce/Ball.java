@@ -64,5 +64,6 @@ public class Ball {
 
     public void deleteSelf(){
         this.canvas.delete(this);
+        this.canvas.repaint();
     }
 }
