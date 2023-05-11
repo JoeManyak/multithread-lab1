@@ -26,11 +26,11 @@ public class BounceFrame extends JFrame {
 
         var pockets = new ArrayList<Pocket>();
         // Let's comment pockets adding for now
-        // addDefaultPockets(pockets);
+        addDefaultPockets(pockets);
 //        this.ballThreadController = new BallThreadController(new ArrayList<>(), pockets);
 //        this.ballThreadController.start();
 
-        priorityTest(pockets);
+        // priorityTest(pockets);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.lightGray);
