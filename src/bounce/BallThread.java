@@ -25,7 +25,7 @@ public class BallThread extends Thread {
                 }
 
                 b.move();
-                Thread.sleep(5);
+                Thread.sleep(2);
            // }
         } catch (InterruptedException ex) {
             System.out.println("panic: "+ ex.getMessage());

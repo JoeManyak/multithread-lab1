@@ -31,9 +31,9 @@ public class BallThreadController extends Thread {
         balls.add(ball);
     }
 
-    private void createThreads(){
-        for (var ball: balls){
-            var thread = new BallThread(ball, pockets);
+    private void createThreads() {
+        for (var i = 0; i<balls.size(); i++){
+            var thread = new BallThread(balls.get(i), pockets);
             threads.add(thread);
             thread.start();
         }

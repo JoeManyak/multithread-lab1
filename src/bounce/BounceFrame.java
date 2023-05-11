@@ -10,7 +10,7 @@ public class BounceFrame extends JFrame {
     private BallCanvas canvas;
     public static final int WIDTH = 450;
     public static final int HEIGHT = 350;
-    private static final int lowPriorityCount = 5;
+    private static final int lowPriorityCount = 200;
     private BallThreadController ballThreadController;
 
     public BounceFrame() {

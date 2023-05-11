@@ -12,8 +12,8 @@ public class Ball {
     private final Color color;
     private int x = 0;
     private int y = 0;
-    private int dx = 2;
-    private int dy = 2;
+    private int dx = 1;
+    private int dy = 1;
 
     public Ball (BallCanvas c, Color color, boolean random, int priority) {
         this.priority = priority;
