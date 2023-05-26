@@ -2,23 +2,16 @@ package Counter;
 
 public class Counter {
     private int count = 0;
-    private final Object mutex = new Object();
 
-    public void increment() {
-        synchronized (mutex) {
-            count++;
-        }
+    public synchronized void increment() {
+        count++;
     }
 
-    public void decrement() {
-        synchronized (mutex) {
-            count--;
-        }
+    public synchronized void decrement() {
+        count--;
     }
 
-    public int getCount() {
-        synchronized (mutex) {
-            return count;
-        }
+    public synchronized int getCount() {
+        return count;
     }
 }

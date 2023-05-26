@@ -3,8 +3,8 @@ package bounce;
 import java.util.ArrayList;
 
 public class BallThread extends Thread {
-    private Ball b;
-    private ArrayList<Pocket> pockets;
+    private final Ball b;
+    private final ArrayList<Pocket> pockets;
 
     public BallThread(Ball ball, ArrayList<Pocket> pockets){
         this.b = ball;
@@ -25,7 +25,7 @@ public class BallThread extends Thread {
                 }
 
                 b.move();
-                Thread.sleep(2);
+                Thread.sleep(3);
            // }
         } catch (InterruptedException ex) {
             System.out.println("panic: "+ ex.getMessage());

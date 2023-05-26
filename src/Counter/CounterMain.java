@@ -4,7 +4,7 @@ public class CounterMain {
     public static void main(String[] args) throws InterruptedException {
         Counter counter = new Counter();
         ThreadCounter positiveCounter = new ThreadCounter(counter, 10000000, 0);
-        ThreadCounter negativeCounter = new ThreadCounter(counter, -10000000, 300);
+        ThreadCounter negativeCounter = new ThreadCounter(counter, -10000000, 10);
         positiveCounter.start();
         negativeCounter.start();
 

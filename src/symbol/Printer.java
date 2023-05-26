@@ -3,7 +3,6 @@ package symbol;
 public class Printer extends Thread {
     private final String symbol;
     private final Object mutex;
-    private final static int sleepTime = 3;
 
     public Printer(String symbol, Object mutex) {
         this.symbol = symbol;
@@ -14,15 +13,19 @@ public class Printer extends Thread {
     public void run() {
         int times = 100;
         for (var i = 0; i < times; i++) {
-            try {
                 synchronized (mutex) {
+                    if (i == 0) {
+                        mutex.notifyAll();
+                    }
+
+                    try {
+                        mutex.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     System.out.print(symbol);
-                    Thread.sleep(sleepTime);
+                    mutex.notifyAll();
                 }
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }
